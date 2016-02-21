@@ -24,7 +24,6 @@ public class Movement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("Triggered!!!");
         if (other.gameObject.CompareTag("Wall"))
         {
             print("Wall Triggered!!!");
