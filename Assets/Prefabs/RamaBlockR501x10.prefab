@@ -25,10 +25,10 @@ GameObject:
   - 4: {fileID: 444702}
   - 33: {fileID: 3393588}
   - 23: {fileID: 2305660}
-  - 64: {fileID: 6404728}
+  - 65: {fileID: 6527860}
   m_Layer: 0
   m_Name: RamaBlock1x10
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalPosition: {x: -6.062576, y: 48.803303, z: 8.27961}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 444702}
@@ -91,18 +91,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182288}
   m_Mesh: {fileID: 4300000, guid: cde80a0c20798134d98b452487026258, type: 3}
---- !u!64 &6404728
-MeshCollider:
+--- !u!65 &6527860
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182288}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: cde80a0c20798134d98b452487026258, type: 3}
+  m_Size: {x: 13.052618, y: 9.914448, z: 10}
+  m_Center: {x: 0, y: 4.957224, z: 5}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

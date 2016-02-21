@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         rotationAmount.z = Input.GetAxis("Horizontal");
         movementAmount.z = Input.GetAxis("Movement");

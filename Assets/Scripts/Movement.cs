@@ -5,14 +5,29 @@ public class Movement : MonoBehaviour
 {
     public float m_RotationSpeed = 10f;
     public float m_MovementSpeed = 10f;
+    private Transform m_root;
+
+    void Awake ()
+    {
+        m_root = transform.parent;
+    }
 
     public void Rotate (Vector3 pRotation)
     {
-        transform.Rotate(pRotation * Time.deltaTime * m_RotationSpeed);
+        m_root.Rotate(pRotation * Time.deltaTime * m_RotationSpeed);
     }
 
     public void Move(Vector3 pMovement)
     {
-        transform.Translate(pMovement * Time.deltaTime * m_MovementSpeed);
+        m_root.Translate(pMovement * Time.deltaTime * m_MovementSpeed);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        print("Triggered!!!");
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            print("Wall Triggered!!!");
+        }
     }
 }
