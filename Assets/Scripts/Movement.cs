@@ -27,6 +27,7 @@ public class Movement : MonoBehaviour
         if (other.gameObject.CompareTag("Wall"))
         {
             print("Wall Triggered!!!");
+            GameInstance.Instance.GameOver();
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WallMover : MonoBehaviour
 {
-    public float m_MovementSpeed = 10f;
+    public float m_MovementSpeed = 50f;
     private Vector3 movement = Vector3.zero;
 
 	// Use this for initialization
@@ -13,7 +13,7 @@ public class WallMover : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         movement.z = m_MovementSpeed * Time.deltaTime;
         transform.Translate(movement);

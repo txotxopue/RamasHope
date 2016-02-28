@@ -23,9 +23,11 @@ public class PlayerInput : MonoBehaviour
         {
             m_PlayerMovement.Rotate(rotationAmount);
         }
+        /* Disabled!
         if (movementAmount != Vector3.zero)
         {
             m_PlayerMovement.Move(movementAmount);
         }
+        */
 	}
 }

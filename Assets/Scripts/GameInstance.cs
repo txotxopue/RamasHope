@@ -12,11 +12,23 @@ public class GameInstance : Singleton<GameInstance>
     public void LoadLevel (string level)
     {
         SceneManager.LoadScene(level);
+        Time.timeScale = 1f;
+    }
+
+    public void LoadLevelAdditive(string level)
+    {
+        SceneManager.LoadScene(level,LoadSceneMode.Additive);
     }
 
     public void QuitGame ()
     {
         print("Exiting game...");
         Application.Quit();
+    }
+
+    public void GameOver ()
+    {
+        Time.timeScale = 0f;
+        LoadLevelAdditive("MainMenu_Additive");
     }
 }
