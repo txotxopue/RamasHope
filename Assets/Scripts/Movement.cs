@@ -29,5 +29,9 @@ public class Movement : MonoBehaviour
             print("Wall Triggered!!!");
             GameInstance.Instance.GameOver();
         }
+        if (other.gameObject.CompareTag("Pickup"))
+        {
+            print("Energised!!!");
+        }
     }
 }
