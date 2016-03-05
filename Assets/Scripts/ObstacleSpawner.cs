@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ObstacleSpawner : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class ObstacleSpawner : MonoBehaviour
     private int randomRadialPosition = 0;
     private int lastRadialPosition = 0;
 
+    public List<GameObject> ObstaclePool;
+
+    void Awake()
+    {
+        ObstaclePool = new List<GameObject>();
+    }
+
     // Use this for initialization
     void Start ()
     {
@@ -27,23 +35,33 @@ public class ObstacleSpawner : MonoBehaviour
 	void Update ()
     {
         timeElapsed += Time.deltaTime;
-        if (timeElapsed  >= m_TimeToSpawn)
+        if (timeElapsed >= m_TimeToSpawn)
         {
-            print("Spawned");
+            //print("Spawned");
             timeElapsed -= m_TimeToSpawn;
-
-            randomRadialPosition = Random.Range(lastRadialPosition - m_radialSpread, lastRadialPosition + m_radialSpread);
-            rotationVector.z = GetRotation(randomRadialPosition);
-            Instantiate(m_ObstaclePrefab, transform.position, Quaternion.Euler(rotationVector));
-            lastRadialPosition = randomRadialPosition;
-            /*
-            randomRotation = Random.Range(lastRotation - m_rotationSpread, lastRotation + m_rotationSpread);
-            rotationVector.z = randomRotation;
-            Instantiate(m_ObstaclePrefab, transform.position, Quaternion.Euler(rotationVector));
-            lastRotation = randomRotation;
-            */
+            SpawnObstacle();
         }
 	}
+
+    private void SpawnObstacle ()
+    {
+        /*
+        randomRadialPosition = Random.Range(lastRadialPosition - m_radialSpread, lastRadialPosition + m_radialSpread);
+        rotationVector.z = GetRotation(randomRadialPosition);
+        Instantiate(m_ObstaclePrefab, transform.position, Quaternion.Euler(rotationVector));
+        lastRadialPosition = randomRadialPosition;
+        */
+
+        GameObject newObstacle = GetObstacleFromPool();
+        newObstacle.transform.position = transform.position;
+        randomRadialPosition = Random.Range(lastRadialPosition - m_radialSpread, lastRadialPosition + m_radialSpread);
+        rotationVector.z = GetRotation(randomRadialPosition);
+        newObstacle.transform.rotation = Quaternion.Euler(rotationVector);
+        newObstacle.SetActive(true);
+        newObstacle.SendMessage("InitObstacle");
+        newObstacle.transform.SetParent(this.transform);
+        lastRadialPosition = randomRadialPosition;
+    }
 
     /**
     * Blocks can spawn in one of 24 circular position.
@@ -53,5 +71,25 @@ public class ObstacleSpawner : MonoBehaviour
     private float GetRotation(int pPosition)
     {
         return (360f / 24f * pPosition);
+    }
+
+
+    /**
+    * Gets an obstacle from the pool.
+    * If there is no inactive obstacle on the pool,
+    * it creates a new obstacle.
+    */
+    public GameObject GetObstacleFromPool ()
+    {
+        for (int i = 0; i < ObstaclePool.Count -1; i++)
+        {
+            if (!ObstaclePool[i].activeInHierarchy)
+            {
+                return ObstaclePool[i];
+            }
+        }
+        GameObject newObstacle = (GameObject)Instantiate(m_ObstaclePrefab);
+        ObstaclePool.Add(newObstacle);
+        return newObstacle;
     }
 }

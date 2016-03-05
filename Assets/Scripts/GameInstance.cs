@@ -7,7 +7,19 @@ public class GameInstance : Singleton<GameInstance>
     protected GameInstance () {}
 
     public string myGlobalVar = "Whatever";
-    public GameObject PlayerToInstance;
+    public static GameObject PlayerToInstance;
+
+    private static GameObject m_Player;
+
+    public GameObject GetPlayer()
+    {
+        if (m_Player == null)
+        {
+            //print("couldnt get the player");
+            m_Player = GameObject.Find("Player");
+        }
+        return m_Player;
+    }
 
     public void LoadLevel (string level)
     {

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WallMover : MonoBehaviour
 {
-    public float m_MovementSpeed = 50f;
+    public float m_MovementSpeed = 100f;
     private Vector3 movement = Vector3.zero;
 
 	// Use this for initialization

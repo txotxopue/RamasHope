@@ -31,7 +31,8 @@ public class Movement : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Pickup"))
         {
-            print("Energised!!!");
+            //print("Energised!!!");
+            other.SendMessage("PickedUp", this.gameObject, SendMessageOptions.DontRequireReceiver);
         }
     }
 }
