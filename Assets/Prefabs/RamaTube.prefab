@@ -2856,7 +2856,7 @@ GameObject:
   m_Layer: 0
   m_Name: RamaTube
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -15375,6 +15375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91525acf9593254eadc973a1a2146a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Pickups: {fileID: 0}
 --- !u!114 &11488360
 MonoBehaviour:
   m_ObjectHideFlags: 1

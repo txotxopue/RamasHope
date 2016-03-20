@@ -7,7 +7,6 @@ public class ObstacleSpawner : MonoBehaviour
 
     public GameObject m_ObstaclePrefab;
     public float m_TimeToSpawn = 2f;
-    public float m_rotationSpread = 60f;
     private float timeElapsed = 0f;
     private Vector3 rotationVector;
     private float randomRotation;

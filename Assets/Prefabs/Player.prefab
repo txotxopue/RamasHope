@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -51,6 +51,7 @@ GameObject:
   - 54: {fileID: 5495150}
   - 114: {fileID: 11475202}
   - 114: {fileID: 11455696}
+  - 114: {fileID: 11495430}
   m_Layer: 0
   m_Name: ShipMesh
   m_TagString: Untagged
@@ -264,6 +265,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RotationSpeed: 30
   m_MovementSpeed: 20
+--- !u!114 &11495430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c67bfba2fa21295468443b1a5259bf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxEnergy: 100
+  m_currentEnergy: 0
+  m_energyLossRate: 10
 --- !u!114 &11499202
 MonoBehaviour:
   m_ObjectHideFlags: 1
