@@ -53,13 +53,13 @@ public class ObstacleSpawner : MonoBehaviour
 
         GameObject newObstacle = GetObstacleFromPool();
         newObstacle.transform.position = transform.position;
-        randomRadialPosition = Random.Range(lastRadialPosition - m_radialSpread, lastRadialPosition + m_radialSpread);
+        randomRadialPosition = Random.Range(lastRadialPosition - m_radialSpread, lastRadialPosition + m_radialSpread + 1);
         rotationVector.z = GetRotation(randomRadialPosition);
         newObstacle.transform.rotation = Quaternion.Euler(rotationVector);
         newObstacle.SetActive(true);
         newObstacle.SendMessage("InitObstacle");
         newObstacle.transform.SetParent(this.transform);
-        lastRadialPosition = randomRadialPosition;
+        lastRadialPosition = randomRadialPosition + newObstacle.GetComponent<ObstaclePrefab>().m_EndRadialOffset;
     }
 
     /**

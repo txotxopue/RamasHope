@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ObstaclePrefab : MonoBehaviour
 {
+    public int m_EndRadialOffset = 0;
     public Transform m_Pickups;
 
 	// Use this for initialization

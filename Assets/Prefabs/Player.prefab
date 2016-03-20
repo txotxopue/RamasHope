@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 486208}
-  - 114: {fileID: 11473828}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -239,19 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696ad5f9e3af62a46b5cbc5348796d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11473828
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a803cccdf5b2b2146a0ca54f65bbcf09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RotationSpeed: 100
-  m_MovementSpeed: 40
 --- !u!114 &11475202
 MonoBehaviour:
   m_ObjectHideFlags: 1
