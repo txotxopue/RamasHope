@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObstaclePrefab : MonoBehaviour
+public class ObstacleManager : MonoBehaviour
 {
+    public EObstacleType _typeID;
+    public bool _allowNextOffset = false;
     public int m_EndRadialOffset = 0;
     public Transform m_Pickups;
 
@@ -33,7 +35,7 @@ public class ObstaclePrefab : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("Killzoned!");
+        //print("Killzoned!");
         ReturnToPool();
         //Destroy(other.gameObject);
     }
@@ -43,8 +45,4 @@ public class ObstaclePrefab : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
-    
-
-
 }

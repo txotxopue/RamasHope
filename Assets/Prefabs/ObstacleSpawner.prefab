@@ -39,9 +39,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0e5b36e8c00f445b8a29e80a1a3590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ObstaclePrefab: {fileID: 156844, guid: 5d28206c4c0ebf64b83dcca8fc6a7687, type: 2}
-  m_TimeToSpawn: 2
-  m_radialSpread: 3
+  m_ObstaclePrefabs:
+  - _typeID: 0
+    _prefab: {fileID: 189800, guid: 29f74b9a9123935479875ef402b61005, type: 2}
+  - _typeID: 1
+    _prefab: {fileID: 166274, guid: 0a8a5f1596b5ee54ebc0ee607465464f, type: 2}
+  - _typeID: 2
+    _prefab: {fileID: 115102, guid: 330eeb4909f28ac49bfe248c6144cc69, type: 2}
+  - _typeID: 3
+    _prefab: {fileID: 132794, guid: 092501aaa8ee7524eb0ff6ccf3cddfc3, type: 2}
+  - _typeID: 4
+    _prefab: {fileID: 187990, guid: 6b54645573972a744a88e4f2dcd4e970, type: 2}
+  m_ObstaclePrefab: {fileID: 120108, guid: 854b3895afbb92d45b87a7b20b772927, type: 2}
+  m_TimeToSpawn: 1
+  m_radialSpread: 2
   ObstaclePool: []
 --- !u!1001 &100100000
 Prefab:

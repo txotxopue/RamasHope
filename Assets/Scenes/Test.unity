@@ -369,14 +369,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 11406648, guid: 56e63afe8036e234db69a07e4262fb9c, type: 2}
-      propertyPath: m_ObstaclePrefab
-      value: 
-      objectReference: {fileID: 120108, guid: 854b3895afbb92d45b87a7b20b772927, type: 2}
-    - target: {fileID: 11406648, guid: 56e63afe8036e234db69a07e4262fb9c, type: 2}
-      propertyPath: m_radialSpread
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 56e63afe8036e234db69a07e4262fb9c, type: 2}
   m_IsPrefabParent: 0
@@ -796,7 +788,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
