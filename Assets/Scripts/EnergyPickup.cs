@@ -1,28 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+
+/// <summary>
+/// Controls energy pickups' interactions.
+/// If the object is picked up, it adds the corresponding energy amount to the picker.
+/// </summary>
 public class EnergyPickup : MonoBehaviour
 {
-    public int m_energyAmount = 5;
+    ///<summary>Amount of energy this pickup provides</summary>
+    public int _energyAmount = 10;
 
-	// Use this for initialization
-	void Start ()
-    {
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	
-	}
 
+    /// <summary>
+    /// This procedure is called when someone picks up this object.
+    /// Then we send the order to add this pickup's energy to the picker.
+    /// </summary>
+    /// <param name="pPicker">GameObject of who picked this pickup</param>
     public void PickedUp (GameObject pPicker)
     {
-        //print("Energy recharged!");
-        pPicker.SendMessage("AddEnergy", m_energyAmount, SendMessageOptions.DontRequireReceiver);
-        //Destroy(this.gameObject);
-        transform.parent.gameObject.SetActive(false);
-        //parent.gameObject.SetActive(false);
+        pPicker.SendMessage("AddEnergy", _energyAmount, SendMessageOptions.DontRequireReceiver);
+        transform.parent.gameObject.SetActive(false); //we deactivate the pickup (until further reusing of this section)
     }
 }

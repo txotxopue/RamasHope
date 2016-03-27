@@ -26,7 +26,7 @@ public class PlayerManager
         //m_Movement.m_PlayerNumber = m_PlayerNumber;
         //m_Shooting.m_PlayerNumber = m_PlayerNumber;
 
-        m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER" + "</color>";
+        //m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER" + "</color>";
 
         MeshRenderer[] renderers = m_Instance.GetComponentsInChildren<MeshRenderer>();
 

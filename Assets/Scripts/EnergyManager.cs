@@ -1,36 +1,71 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/// <summary>
+/// Controls ship's energy levels.
+/// The maximum energy the ship can have is maxEnergy.
+/// Energy decays at energyLossRate. 
+/// When the energy reaches zero, the ship is dead.
+/// </summary>
 public class EnergyManager : MonoBehaviour
 {
-    public float m_maxEnergy = 100f;
-    public float m_currentEnergy;
-    public float m_energyLossRate = 1f;
-    private bool m_dead;
-	// Use this for initialization
+
+    ///<summary>Maximum energy of the ship</summary>
+    [Tooltip("Maximum energy of the ship")]
+    public float _maxEnergy = 100f;
+
+    ///<summary>Current energy of the ship</summary>
+    [Tooltip("Current energy of the ship (not editable)")]
+    public float _currentEnergy;
+
+    ///<summary>Energy losing rate in units per second</summary>
+    [Tooltip("Energy losing rate in units per second")]
+    public float _energyLossRate = 1f;
+
+    ///<summary>If the energy should be decreasing or not.</summary>
+    public bool _bEnergyDrain { get; set; }
+
+    ///<summary>Is the ship destroyed?</summary>
+    private bool _dead;
+
+
 	void Start ()
     {
-        m_dead = false;
-        m_currentEnergy = m_maxEnergy;
+        _dead = false;
+        _currentEnergy = _maxEnergy;
+        _bEnergyDrain = false;
 	}
 	
-	// Update is called once per frame
+	
 	void Update ()
     {
-        m_currentEnergy -= m_energyLossRate * Time.deltaTime;
-        if (m_currentEnergy <= 0 && !m_dead)
+        // Apply energy loss by time
+        if (_bEnergyDrain)
         {
-            m_dead = true;
-            GameInstance.Instance.GameOver();
+            _currentEnergy -= _energyLossRate * Time.deltaTime;
+        }
+
+        if (_currentEnergy <= 0 && !_dead)
+        {
+            // If there's not energy left, this is Game Over
+            _dead = true;
+            transform.parent.GetComponentInChildren<Camera>().transform.parent = null;
+            transform.parent.gameObject.SetActive(false);
+            //GameInstance.Instance.GameOver();
         }
 	}
 
+
+    /// <summary>
+    /// Adds certain amount of energy to the current energy of the ship.
+    /// Energy cannot surpass _maxEnergy.
+    /// </summary>
+    /// <param name="pEnergyAmount">Amount of energy to add</param>
     public void AddEnergy (int pEnergyAmount)
     {
-        m_currentEnergy += pEnergyAmount;
-        if (m_currentEnergy > m_maxEnergy)
+        _currentEnergy += pEnergyAmount;
+        if (_currentEnergy > _maxEnergy)
         {
-            m_currentEnergy = m_maxEnergy;
+            _currentEnergy = _maxEnergy;
         }
     }
 }

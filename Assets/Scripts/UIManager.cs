@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
         m_PlayerEnergyManager = GameInstance.Instance.GetPlayer().GetComponentInChildren<EnergyManager>();
         if (m_EnergyMeter != null && m_PlayerEnergyManager != null)
         {
-            m_EnergyMeter.fillAmount = m_PlayerEnergyManager.m_currentEnergy / m_PlayerEnergyManager.m_maxEnergy;
+            m_EnergyMeter.fillAmount = m_PlayerEnergyManager._currentEnergy / m_PlayerEnergyManager._maxEnergy;
         }
 	}
 }

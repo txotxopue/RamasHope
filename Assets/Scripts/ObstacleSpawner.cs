@@ -17,6 +17,7 @@ public class ObstacleSpawner : MonoBehaviour
     private bool _lastAllowsOffset = false;
     //private int _randomRadialPosition = 0;
     private int _lastRadialPosition = 0;
+    private bool _bSpawnIsActive = false;
 
     public List<GameObject> ObstaclePool;
 
@@ -28,19 +29,30 @@ public class ObstacleSpawner : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        timeElapsed = m_TimeToSpawn;
+        timeElapsed = 0f;
         rotationVector = transform.rotation.eulerAngles;
+        _bSpawnIsActive = false;
 	}
 	
+
+    public void SetSpawnActive(bool pIsActive)
+    {
+        _bSpawnIsActive = pIsActive;
+    }
+
+
 	// Update is called once per frame
 	void Update ()
     {
-        timeElapsed += Time.deltaTime;
-        if (timeElapsed >= m_TimeToSpawn)
+        if (_bSpawnIsActive)
         {
-            //print("Spawned");
-            timeElapsed -= m_TimeToSpawn;
-            SpawnObstacle();
+            timeElapsed += Time.deltaTime;
+            if (timeElapsed >= m_TimeToSpawn)
+            {
+                //print("Spawned");
+                timeElapsed -= m_TimeToSpawn;
+                SpawnObstacle();
+            } 
         }
 	}
 
@@ -78,7 +90,7 @@ public class ObstacleSpawner : MonoBehaviour
         _lastAllowsOffset = newObstacle.GetComponent<ObstacleManager>()._allowNextOffset;
         _lastRadialPosition = radialPosition + newObstacle.GetComponent<ObstacleManager>().m_EndRadialOffset;
 
-        print("Spawned: <color=Green>" + newObstacleType._typeID + "</color> at <color=Blue>" + radialPosition + "</color>. Next radial root at <color=Blue>" + _lastRadialPosition + "</color>");
+        //print("Spawned: <color=Green>" + newObstacleType._typeID + "</color> at <color=Blue>" + radialPosition + "</color>. Next radial root at <color=Blue>" + _lastRadialPosition + "</color>");
     }
 
 

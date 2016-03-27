@@ -26,8 +26,10 @@ public class Movement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Wall"))
         {
-            print("Wall Triggered!!!");
-            GameInstance.Instance.GameOver();
+            //print("Wall Triggered!!!");
+            m_root.GetComponentInChildren<Camera>().transform.parent = null;
+            m_root.gameObject.SetActive(false);
+            //GameInstance.Instance.GameOver();
         }
         if (other.gameObject.CompareTag("Pickup"))
         {
