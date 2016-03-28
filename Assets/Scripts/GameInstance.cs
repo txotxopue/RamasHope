@@ -11,6 +11,11 @@ public class GameInstance : Singleton<GameInstance>
     ///<summary>Reference to the player</summary>
     private static GameObject m_Player;
 
+    ///<summary>Maximum speed of the obstacles traveling through the tube</summary>
+    public static float _maxTubeSpeed = 100f;
+    ///<summary>Current speed of the obstacles traveling through the tube</summary>
+    public static float _currentTubeSpeed = 100f;
+
 
     /// <summary>
     /// Get a player reference.
@@ -35,7 +40,7 @@ public class GameInstance : Singleton<GameInstance>
     public void LoadLevel (string level)
     {
         SceneManager.LoadScene(level);
-        Time.timeScale = 1f;
+        _currentTubeSpeed = _maxTubeSpeed;
     }
 
 
@@ -64,7 +69,7 @@ public class GameInstance : Singleton<GameInstance>
     /// </summary>
     public void GameOver ()
     {
-        Time.timeScale = 0f;
+        _currentTubeSpeed = 0f;
         LoadLevelAdditive("MainMenu_Additive");
     }
 }

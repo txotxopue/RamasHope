@@ -262,9 +262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67bfba2fa21295468443b1a5259bf97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxEnergy: 100
-  m_currentEnergy: 0
-  m_energyLossRate: 10
+  _maxEnergy: 100
+  _currentEnergy: 0
+  _energyLossRate: 10
 --- !u!114 &11499202
 MonoBehaviour:
   m_ObjectHideFlags: 1

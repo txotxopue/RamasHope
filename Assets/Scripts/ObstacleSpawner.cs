@@ -1,60 +1,103 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 
+/// <summary>
+/// Spawns obstacles at intervals of _timeToSpawn.
+/// Has a list of ObstacleType and chooses randomly
+/// which one to spawn. Also manages a pool of obstacles,
+/// so spawning doesn't always mean create a new obstacle.
+/// </summary>
 public class ObstacleSpawner : MonoBehaviour
 {
+    [Header("List of obstacle prefabs")]
+    ///<summary>List of possible ObstacleType to spawn</summary>
+    public ObstacleType[] _obstaclePrefabs;
 
-    public ObstacleType[] m_ObstaclePrefabs;
-    public GameObject m_ObstaclePrefab;
-    public float m_TimeToSpawn = 2f;
-    private float timeElapsed = 0f;
-    private Vector3 rotationVector;
-    private float randomRotation;
-    private float lastRotation;
+    [Header("Spawner variables")]
+    ///<summary>Interval in seconds between obstacles</summary>
+    public float _timeToSpawn = 2f;
+    ///<summary>Coroutine invoked to spawn the obstacles at the given _timeToSpawn intervals</summary>
+    private IEnumerator _spawningCoroutine;
 
-    public int m_radialSpread = 3;
+    ///<summary>Rotation vector for the next obstacle</summary>
+    private Vector3 _rotationVector;
+
+    ///<summary>Number of radial positions that an obstacle can offset from the previous one</summary>
+    public int _radialSpread = 2;
+    ///<summary>Does the last obstacle allow the next one to spawn offset by _radialSpread?</summary>
     private bool _lastAllowsOffset = false;
-    //private int _randomRadialPosition = 0;
+    ///<summary>Radial position of the last obstacle</summary>
     private int _lastRadialPosition = 0;
-    private bool _bSpawnIsActive = false;
 
+    ///<summary>Is this spawner active?</summary>
+    private bool _bSpawnIsActive = false;
+    [Header ("Obstacle Pool")]
+    ///<summary>Obstacle pool containing all the obstacles created. Needed to be able to reuse the ones no longer in player's view</summary>
     public List<GameObject> ObstaclePool;
+
 
     void Awake()
     {
         ObstaclePool = new List<GameObject>();
     }
 
+
     // Use this for initialization
     void Start ()
     {
-        timeElapsed = 0f;
-        rotationVector = transform.rotation.eulerAngles;
+        // We set the rotation to the rotation of the spawner
+        _rotationVector = transform.rotation.eulerAngles;
         _bSpawnIsActive = false;
 	}
 	
 
+    /// <summary>
+    /// Switch the spawner On/Off.
+    /// </summary>
+    /// <param name="pIsActive">true to activate the spawner, false to deactivate it.</param>
     public void SetSpawnActive(bool pIsActive)
     {
         _bSpawnIsActive = pIsActive;
+        if (_bSpawnIsActive)
+        {
+            _spawningCoroutine = SpawningCoroutine();
+            StartCoroutine(_spawningCoroutine);
+        }
+        else
+        {
+            StopCoroutine(_spawningCoroutine);
+        }
     }
 
 
-	// Update is called once per frame
-	void Update ()
+    public IEnumerator SpawningCoroutine()
     {
+        while (true)
+        {
+            SpawnObstacle();
+            yield return new WaitForSeconds(_timeToSpawn);
+        }
+    }
+
+
+    // We update the time counter and spawn 
+    void Update ()
+    {
+        /*
         if (_bSpawnIsActive)
         {
-            timeElapsed += Time.deltaTime;
-            if (timeElapsed >= m_TimeToSpawn)
+            _timeElapsed += Time.deltaTime;
+            if (_timeElapsed >= _timeToSpawn)
             {
                 //print("Spawned");
-                timeElapsed -= m_TimeToSpawn;
+                _timeElapsed -= _timeToSpawn;
                 SpawnObstacle();
             } 
         }
+        */
 	}
+
 
     private void SpawnObstacle ()
     {
@@ -77,18 +120,18 @@ public class ObstacleSpawner : MonoBehaviour
         int radialPosition = _lastRadialPosition;
         if (_lastAllowsOffset)
         {
-            radialPosition = Random.Range(_lastRadialPosition - m_radialSpread, _lastRadialPosition + m_radialSpread + 1);
+            radialPosition = Random.Range(_lastRadialPosition - _radialSpread, _lastRadialPosition + _radialSpread + 1);
         }
         
-        rotationVector.z = GetRotation(radialPosition);
-        newObstacle.transform.rotation = Quaternion.Euler(rotationVector);
+        _rotationVector.z = GetRotation(radialPosition);
+        newObstacle.transform.rotation = Quaternion.Euler(_rotationVector);
         //newObstacle.name += radialPosition;
         newObstacle.SetActive(true);
         newObstacle.SendMessage("InitObstacle");
         newObstacle.transform.SetParent(this.transform);
 
         _lastAllowsOffset = newObstacle.GetComponent<ObstacleManager>()._allowNextOffset;
-        _lastRadialPosition = radialPosition + newObstacle.GetComponent<ObstacleManager>().m_EndRadialOffset;
+        _lastRadialPosition = radialPosition + newObstacle.GetComponent<ObstacleManager>()._endRadialOffset;
 
         //print("Spawned: <color=Green>" + newObstacleType._typeID + "</color> at <color=Blue>" + radialPosition + "</color>. Next radial root at <color=Blue>" + _lastRadialPosition + "</color>");
     }
@@ -96,8 +139,8 @@ public class ObstacleSpawner : MonoBehaviour
 
     private ObstacleType GetRandomObstacleType()
     {
-        int randomIndex = Random.Range(0, m_ObstaclePrefabs.Length);
-        return m_ObstaclePrefabs[randomIndex];
+        int randomIndex = Random.Range(0, _obstaclePrefabs.Length);
+        return _obstaclePrefabs[randomIndex];
     }
 
 
@@ -137,26 +180,4 @@ public class ObstacleSpawner : MonoBehaviour
     {
         return (360f / 24f * pPosition);
     }
-
-
-    /**
-    * Gets an obstacle from the pool.
-    * If there is no inactive obstacle on the pool,
-    * it creates a new obstacle.
-    */
-    /*
-    public GameObject GetObstacleFromPool ()
-    {
-        for (int i = 0; i < ObstaclePool.Count -1; i++)
-        {
-            if (!ObstaclePool[i].activeInHierarchy)
-            {
-                return ObstaclePool[i];
-            }
-        }
-        GameObject newObstacle = (GameObject)Instantiate(m_ObstaclePrefab);
-        ObstaclePool.Add(newObstacle);
-        return newObstacle;
-    }
-    */
 }
