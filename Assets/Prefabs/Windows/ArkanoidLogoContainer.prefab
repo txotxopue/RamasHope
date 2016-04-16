@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 22487866}
   m_Layer: 5
-  m_Name: ArkanoidTextContainer
+  m_Name: ArkanoidLogoContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
