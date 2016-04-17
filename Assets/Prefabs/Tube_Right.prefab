@@ -2845,7 +2845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9dfd1325b14124ca638dc1034533e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_energyAmount: 10
+  _energyAmount: 10
 --- !u!114 &11424666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2857,7 +2857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9dfd1325b14124ca638dc1034533e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_energyAmount: 10
+  _energyAmount: 10
 --- !u!114 &11452366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2871,8 +2871,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _typeID: 1
   _allowNextOffset: 0
-  m_EndRadialOffset: -1
-  m_Pickups: {fileID: 466112}
+  _endRadialOffset: -1
+  _pickups: {fileID: 0}
 --- !u!114 &11461060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2884,7 +2884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9dfd1325b14124ca638dc1034533e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_energyAmount: 10
+  _energyAmount: 10
 --- !u!114 &11462326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2896,7 +2896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9dfd1325b14124ca638dc1034533e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_energyAmount: 10
+  _energyAmount: 10
 --- !u!114 &11477358
 MonoBehaviour:
   m_ObjectHideFlags: 1
