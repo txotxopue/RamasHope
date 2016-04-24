@@ -8,16 +8,22 @@
 public class Movement : MonoBehaviour
 {
     ///<summary>The velocity at which you rotate around the tube</summary>
-    public float m_RotationSpeed = 10f;
+    [SerializeField]
+    private float m_RotationSpeed = 10f;
     ///<summary>Reference to the ship axis</summary>
     private Transform m_root;
 
     //not needed at this moment
-    //public float m_MovementSpeed = 10f;
+    //[SerializeField]
+    //private float m_MovementSpeed = 10f;
 
-
+    
+    /// <summary>
+    /// Called when the GameObject is created.
+    /// </summary>
     void Awake ()
     {
+        // Get the root object (this is the axis for the tube rotations)
         m_root = transform.parent;
     }
 

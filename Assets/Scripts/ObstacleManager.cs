@@ -15,11 +15,12 @@ public class ObstacleManager : MonoBehaviour
     ///<summary>How many positions is the end of this obstacle offset (0-23)</summary>
     public int _endRadialOffset = 0;
     ///<summary>Pickups container under this obstacle prefab</summary>
-    public Transform _pickups;
+    [SerializeField]
+    private Transform _pickups;
 
 
-	// Find the pickups
-	void Awake ()
+    // Find the pickups
+    void Awake ()
     {
         _pickups = transform.FindChild("Pickups");
 	}

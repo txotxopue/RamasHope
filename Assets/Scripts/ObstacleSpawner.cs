@@ -12,11 +12,13 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [Header("List of obstacle prefabs")]
     ///<summary>List of possible ObstacleType to spawn</summary>
-    public ObstacleType[] _obstaclePrefabs;
+    [SerializeField]
+    private ObstacleType[] _obstaclePrefabs;
 
     [Header("Spawner variables")]
     ///<summary>Interval in seconds between obstacles</summary>
-    public float _timeToSpawn = 2f;
+    [SerializeField]
+    private float _timeToSpawn = 2f;
     ///<summary>Coroutine invoked to spawn the obstacles at the given _timeToSpawn intervals</summary>
     private IEnumerator _spawningCoroutine;
 
@@ -24,7 +26,8 @@ public class ObstacleSpawner : MonoBehaviour
     private Vector3 _rotationVector;
 
     ///<summary>Number of radial positions that an obstacle can offset from the previous one</summary>
-    public int _radialSpread = 2;
+    [SerializeField]
+    private int _radialSpread = 2;
     ///<summary>Does the last obstacle allow the next one to spawn offset by _radialSpread?</summary>
     private bool _lastAllowsOffset = false;
     ///<summary>Radial position of the last obstacle</summary>
@@ -34,7 +37,8 @@ public class ObstacleSpawner : MonoBehaviour
     private bool _bSpawnIsActive = false;
     [Header ("Obstacle Pool")]
     ///<summary>Obstacle pool containing all the obstacles created. Needed to be able to reuse the ones no longer in player's view</summary>
-    public List<GameObject> ObstaclePool;
+    [SerializeField]
+    private List<GameObject> ObstaclePool;
 
 
     void Awake()
@@ -71,6 +75,9 @@ public class ObstacleSpawner : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Corroutine to spawn obstacles by _timeToSpawn
+    /// </summary>
     public IEnumerator SpawningCoroutine()
     {
         while (true)
@@ -81,10 +88,11 @@ public class ObstacleSpawner : MonoBehaviour
     }
 
 
+    /* Deprecated in favor of Spawning coroutine
     // We update the time counter and spawn 
     void Update ()
     {
-        /*
+        
         if (_bSpawnIsActive)
         {
             _timeElapsed += Time.deltaTime;
@@ -95,41 +103,38 @@ public class ObstacleSpawner : MonoBehaviour
                 SpawnObstacle();
             } 
         }
-        */
+        
 	}
+    */
 
 
+    /// <summary>
+    /// Spawns a new obstacle ramdomly from the avalaible types.
+    /// It tries to get the obstacle from the pool if possible.
+    /// </summary>
     private void SpawnObstacle ()
     {
-        /*
-        randomRadialPosition = Random.Range(lastRadialPosition - m_radialSpread, lastRadialPosition + m_radialSpread);
-        rotationVector.z = GetRotation(randomRadialPosition);
-        Instantiate(m_ObstaclePrefab, transform.position, Quaternion.Euler(rotationVector));
-        lastRadialPosition = randomRadialPosition;
-        */
-
         ObstacleType newObstacleType = GetRandomObstacleType();
-
+        // Gets the obstacle from the pool or creates a new one
         GameObject newObstacle = GetObstacle(newObstacleType);
-
-        /*
-        GameObject newObstacle = GetObstacleFromPool();
-        */
         newObstacle.transform.position = transform.position;
 
+        // Get new radial position for the new obstacle if rotation is allowed 
         int radialPosition = _lastRadialPosition;
         if (_lastAllowsOffset)
         {
             radialPosition = Random.Range(_lastRadialPosition - _radialSpread, _lastRadialPosition + _radialSpread + 1);
         }
-        
+        // Set the new rotation
         _rotationVector.z = GetRotation(radialPosition);
         newObstacle.transform.rotation = Quaternion.Euler(_rotationVector);
-        //newObstacle.name += radialPosition;
+        
+        // Activate the obstacle
         newObstacle.SetActive(true);
         newObstacle.SendMessage("InitObstacle");
         newObstacle.transform.SetParent(this.transform);
 
+        // Save the radial offset for the next obstacle
         _lastAllowsOffset = newObstacle.GetComponent<ObstacleManager>()._allowNextOffset;
         _lastRadialPosition = radialPosition + newObstacle.GetComponent<ObstacleManager>()._endRadialOffset;
 
@@ -137,6 +142,10 @@ public class ObstacleSpawner : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Chooses an obstacle type from the list of prefabs
+    /// </summary>
+    /// <returns></returns>
     private ObstacleType GetRandomObstacleType()
     {
         int randomIndex = Random.Range(0, _obstaclePrefabs.Length);
@@ -144,11 +153,13 @@ public class ObstacleSpawner : MonoBehaviour
     }
 
 
-    /**
-    * Gets an obstacle of the given type from the pool.
-    * If there is no inactive obstacle of that type in the pool,
-    * it creates a new obstacle.
-    */
+    /// <summary>
+    /// Gets an obstacle of the given type from the pool.
+    /// If there is no inactive obstacle of that type in the pool,
+    /// it creates a new obstacle.
+    /// </summary>
+    /// <param name="newObstacleType">Type of the obstacle that we want to retrieve from the pool or create.</param>
+    /// <returns>The new obstacle</returns>
     private GameObject GetObstacle(ObstacleType newObstacleType)
     {
         // Try to get it from the pool
@@ -171,11 +182,13 @@ public class ObstacleSpawner : MonoBehaviour
     }
 
 
-    /**
-    * Blocks can spawn in one of 24 circular position.
-    * Given a number from 0 to 23, this function returns the equivalent euler angle
-    * needed to spawn the prefab
-    **/
+    /// <summary>
+    /// Blocks can spawn in one of 24 circular position.
+    /// Given a number from 0 to 23, this function returns the equivalent euler angle
+    /// needed to spawn the prefab
+    /// </summary>
+    /// <param name="pPosition">The radial position of the obstacle</param>
+    /// <returns>The angle in Euler float format</returns>
     private float GetRotation(int pPosition)
     {
         return (360f / 24f * pPosition);

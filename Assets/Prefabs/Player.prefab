@@ -30,8 +30,8 @@ GameObject:
   - 114: {fileID: 11499202}
   - 114: {fileID: 11422420}
   m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
+  m_Name: PlayerCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,7 +122,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 06b42f3defafe65448332e4cf8c5a262, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -250,7 +250,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RotationSpeed: 30
-  m_MovementSpeed: 20
 --- !u!114 &11495430
 MonoBehaviour:
   m_ObjectHideFlags: 1
