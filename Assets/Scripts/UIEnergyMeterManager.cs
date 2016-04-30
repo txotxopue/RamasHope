@@ -2,9 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIEnergyMeterManager : MonoBehaviour
 {
-    private Image m_EnergyMeter;
+    [SerializeField]
+    private Image[] m_EnergyMeter;
     private EnergyManager m_PlayerEnergyManager;
     private GameObject m_Player;
     //public GameManager m_GameManager;
@@ -12,7 +13,7 @@ public class UIManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        m_EnergyMeter = GameObject.Find("EnergyMeter").GetComponent<Image>();
+        //m_EnergyMeter = GameObject.Find("EnergyMeter").GetComponent<Image>();
         //m_Player = GameInstance.Instance.GetPlayer();
         //m_PlayerEnergyManager = m_GameManager.m_PlayerManager.m_Instance.GetComponentInChildren<EnergyManager>();
         /*
@@ -33,10 +34,20 @@ public class UIManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        if (m_EnergyMeter.Length != 0)
+        {
+            m_PlayerEnergyManager = GameInstance.Instance.GetPlayer().GetComponentInChildren<EnergyManager>();
+            for (int i = 0; i < m_EnergyMeter.Length; i++)
+            {
+                m_EnergyMeter[i].fillAmount = m_PlayerEnergyManager._currentEnergy / m_PlayerEnergyManager._maxEnergy;
+            }
+        }
+        /*
         m_PlayerEnergyManager = GameInstance.Instance.GetPlayer().GetComponentInChildren<EnergyManager>();
         if (m_EnergyMeter != null && m_PlayerEnergyManager != null)
         {
             m_EnergyMeter.fillAmount = m_PlayerEnergyManager._currentEnergy / m_PlayerEnergyManager._maxEnergy;
         }
+        */
 	}
 }
