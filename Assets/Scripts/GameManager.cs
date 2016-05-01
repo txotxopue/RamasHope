@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public ObstacleSpawner _obstacleSpawner;
     ///<summary>Reference to the container of the information text layers</summary>
     public GameObject _textContainer;
+    [SerializeField]
+    ///<summary>Reference to the scene canvas, needed to pass it to the player camera</summary>
+    private Canvas _sceneCanvas;
 
     ///<summary>How much time to yield before starting to drain player's energy</summary>
     public float _startDelay = 3f;
@@ -42,7 +45,7 @@ public class GameManager : MonoBehaviour
         _playerManager.m_Instance =
             Instantiate(_playerPrefab, _playerManager.m_SpawnPoint.position, _playerManager.m_SpawnPoint.rotation) as GameObject;
         _playerManager.m_Instance.name = "Player";
-        _playerManager.Setup();
+        _playerManager.Setup(_sceneCanvas);
     }
 
 

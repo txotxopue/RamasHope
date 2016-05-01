@@ -1616,6 +1616,7 @@ MonoBehaviour:
     m_Instance: {fileID: 0}
   _obstacleSpawner: {fileID: 626254717}
   _textContainer: {fileID: 1770328138}
+  _sceneCanvas: {fileID: 1059121050}
   _startDelay: 3
 --- !u!4 &2126932638
 Transform:

@@ -17,7 +17,7 @@ public class PlayerManager
     private GameObject m_CanvasGameObject;
 
 
-    public void Setup()
+    public void Setup(Canvas pCanvas)
     {
         //m_Movement = m_Instance.GetComponent<TankMovement>();
         //m_Shooting = m_Instance.GetComponent<TankShooting>();
@@ -33,6 +33,12 @@ public class PlayerManager
         for (int i = 0; i < renderers.Length; i++)
         {
             renderers[i].material.color = m_PlayerColor;
+        }
+
+        Camera camera = m_Instance.GetComponentInChildren<Camera>();
+        if (camera != null)
+        {
+            pCanvas.worldCamera = camera;
         }
     }
 
