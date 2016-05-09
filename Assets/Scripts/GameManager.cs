@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         _playerManager.m_Instance =
             Instantiate(_playerPrefab, _playerManager.m_SpawnPoint.position, _playerManager.m_SpawnPoint.rotation) as GameObject;
         _playerManager.m_Instance.name = "Player";
-        _playerManager.Setup(_sceneCanvas);
+        //_playerManager.Setup(_sceneCanvas);
     }
 
 
