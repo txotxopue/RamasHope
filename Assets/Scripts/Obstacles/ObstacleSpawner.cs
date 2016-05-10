@@ -135,8 +135,8 @@ public class ObstacleSpawner : MonoBehaviour
         newObstacle.transform.SetParent(this.transform);
 
         // Save the radial offset for the next obstacle
-        _lastAllowsOffset = newObstacle.GetComponent<ObstacleManager>()._allowNextOffset;
-        _lastRadialPosition = radialPosition + newObstacle.GetComponent<ObstacleManager>()._endRadialOffset;
+        _lastAllowsOffset = newObstacle.GetComponent<ObstacleManager>().AllowNextOffset;
+        _lastRadialPosition = radialPosition + newObstacle.GetComponent<ObstacleManager>().EndRadialOffset;
 
         //print("Spawned: <color=Green>" + newObstacleType._typeID + "</color> at <color=Blue>" + radialPosition + "</color>. Next radial root at <color=Blue>" + _lastRadialPosition + "</color>");
     }
@@ -168,7 +168,7 @@ public class ObstacleSpawner : MonoBehaviour
             if (!ObstaclePool[i].activeInHierarchy)
             {
                 // Make sure it matches the selected type
-                if (ObstaclePool[i].GetComponent<ObstacleManager>()._typeID == newObstacleType._typeID)
+                if (ObstaclePool[i].GetComponent<ObstacleManager>().TypeID == newObstacleType._typeID)
                 {
                     return ObstaclePool[i];
                 }

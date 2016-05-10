@@ -8,15 +8,42 @@
 /// </summary>
 public class ObstacleManager : MonoBehaviour
 {
+
     ///<summary>Type of the obstacle</summary>
-    public EObstacleType _typeID;
+    [Tooltip("Type of the obstacle")]
+    [SerializeField]
+    private EObstacleType _typeID;
+    ///<summary>Type of the obstacle</summary>
+    public EObstacleType TypeID
+    {
+        get { return _typeID; }
+    }
+
     ///<summary>Does this obstacle allow the next one to be offset in angle?</summary>
-    public bool _allowNextOffset = false;
+    [Tooltip("Does this obstacle allow the next one to be offset in angle?")]
+    [SerializeField]
+    private bool _allowNextOffset = false;
+    ///<summary>Does this obstacle allow the next one to be offset in angle?</summary>
+    public bool AllowNextOffset
+    {
+        get { return _allowNextOffset; }
+    }
+
+
+
     ///<summary>How many positions is the end of this obstacle offset (0-23)</summary>
-    public int _endRadialOffset = 0;
+    [SerializeField]
+    private int _endRadialOffset = 0;
+    ///<summary>How many positions is the end of this obstacle offset (0-23)</summary>
+    public int EndRadialOffset
+    {
+        get { return _endRadialOffset; }
+    }
     ///<summary>Pickups container under this obstacle prefab</summary>
     [SerializeField]
     private Transform _pickups;
+
+    
 
 
     // Find the pickups
