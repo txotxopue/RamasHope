@@ -36,7 +36,7 @@ public class UIEnergyMeterManager : MonoBehaviour
     {
         if (m_EnergyMeter.Length != 0)
         {
-            m_PlayerEnergyManager = GameInstance.Instance.GetPlayer().GetComponentInChildren<EnergyManager>();
+            m_PlayerEnergyManager = GameInstance.GetPlayer().GetComponentInChildren<EnergyManager>();
             for (int i = 0; i < m_EnergyMeter.Length; i++)
             {
                 m_EnergyMeter[i].fillAmount = m_PlayerEnergyManager._currentEnergy / m_PlayerEnergyManager._maxEnergy;

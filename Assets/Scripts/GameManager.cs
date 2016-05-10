@@ -10,22 +10,45 @@ using UnityEngine.UI;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    [Header("Player")]
     ///<summary>Prefab to instantiate player</summary>
     public GameObject _playerPrefab;
     ///<summary>Player manager describing the player and his spawning point</summary>
     public PlayerManager _playerManager;
+
+    [Header("Obstacles")]
     ///<summary>Reference to the obstacle spawner. We need it to turn on/off the spawning</summary>
     public ObstacleSpawner _obstacleSpawner;
+    [SerializeField]
+    ///<summary>Maximum speed of the obstacles traveling through the tube</summary>
+    private float _maxTubeSpeed = 100f;
+    ///<summary>Current speed of the obstacles traveling through the tube</summary>
+    private float _currentTubeSpeed = 0f;
+
+    [Header("UI")]
     ///<summary>Reference to the container of the information text layers</summary>
     public GameObject _textContainer;
     [SerializeField]
     ///<summary>Reference to the scene canvas, needed to pass it to the player camera</summary>
     private Canvas _sceneCanvas;
 
+    [Header("Audio")]
+    ///<summary>This level's music theme</summary>
+    [SerializeField]
+    private AudioClip _levelMusicTheme;
+
+
+    [Header("Game Flow")]
     ///<summary>How much time to yield before starting to drain player's energy</summary>
     public float _startDelay = 3f;
     ///<summary>Yield object to drain player's energy. To give the tubes time to travel towards the player.</summary>
     private WaitForSeconds _startWait;
+
+
+    private void Awake()
+    {
+        GameInstance.SetCurrentGameManager(this);
+    }
 
 
     private void Start()
@@ -67,7 +90,9 @@ public class GameManager : MonoBehaviour
     private IEnumerator LevelStarting()
     {
         _obstacleSpawner.SetSpawnActive(true);
-        GameInstance.Instance.GetPlayer().GetComponentInChildren<EnergyManager>()._bEnergyDrain = false;
+        ServiceLocator.GetMusicService().Play(_levelMusicTheme);
+        GameInstance.GetPlayer().GetComponentInChildren<EnergyManager>()._bEnergyDrain = false;
+        SetFullSpeed(); // Start moving the tube
         DisplayText("get ready!");
         yield return _startWait;
     }
@@ -78,7 +103,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private IEnumerator LevelPlaying()
     {
-        GameInstance.Instance.GetPlayer().GetComponentInChildren<EnergyManager>()._bEnergyDrain = true;
+        GameInstance.GetPlayer().GetComponentInChildren<EnergyManager>()._bEnergyDrain = true;
         EmptyText();
 
         while (_playerManager.m_Instance.activeSelf)
@@ -94,8 +119,51 @@ public class GameManager : MonoBehaviour
     private IEnumerator LevelEnding()
     {
         DisplayText("game over");
-        GameInstance.Instance.GameOver();
+        SetTubeSpeed(0f);
+        GameInstance.GameOver();
         yield return null;
+    }
+
+
+    /// <summary>
+    /// Returns the speed in the tube.
+    /// </summary>
+    /// <returns></returns>
+    public float GetTubeSpeed()
+    {
+        return _currentTubeSpeed;
+    }
+
+
+    /// <summary>
+    /// Sets the speed in the tube.
+    /// </summary>
+    /// <param name="pTubeSpeed">Speed to set</param>
+    public void SetTubeSpeed(float pTubeSpeed)
+    {
+        if (pTubeSpeed <= _maxTubeSpeed && pTubeSpeed >= 0f)
+        {
+            _currentTubeSpeed = pTubeSpeed;
+        }
+        else if (pTubeSpeed > _maxTubeSpeed)
+        {
+            SetFullSpeed();
+        }
+        else
+        {
+            _currentTubeSpeed = 0f;
+        }
+
+
+    }
+
+
+    /// <summary>
+    /// Sets the tube speed to the maximum tube speed.
+    /// </summary>
+    public void SetFullSpeed()
+    {
+        _currentTubeSpeed = _maxTubeSpeed;
     }
 
 

@@ -11,17 +11,13 @@ public class GameInstance : Singleton<GameInstance>
     ///<summary>Reference to the player</summary>
     private static GameObject m_Player;
 
-    ///<summary>Maximum speed of the obstacles traveling through the tube</summary>
-    public static float _maxTubeSpeed = 100f;
-    ///<summary>Current speed of the obstacles traveling through the tube</summary>
-    public static float _currentTubeSpeed = 100f;
-
+    private static GameManager _currentGameManager;
 
     /// <summary>
     /// Get a player reference.
     /// </summary>
     /// <returns>the GameObject of the player</returns>
-    public GameObject GetPlayer()
+    public static GameObject GetPlayer()
     {
         // If the player has not been found yet, go find him in the hierarchy
         if (m_Player == null)
@@ -32,15 +28,26 @@ public class GameInstance : Singleton<GameInstance>
     }
 
 
+    public static GameManager GetCurrentGameManager()
+    {
+        return _currentGameManager;
+    }
+
+
+    public static void SetCurrentGameManager(GameManager pGameManager)
+    {
+        _currentGameManager = pGameManager;
+    }
+
+
     /// <summary>
     /// Load the desired level.
     /// It also restores timeScale, in case it has been halted.
     /// </summary>
     /// <param name="level">The name of the level to load</param>
-    public void LoadLevel (string level)
+    public static void LoadLevel (string level)
     {
         SceneManager.LoadScene(level);
-        _currentTubeSpeed = _maxTubeSpeed;
     }
 
 
@@ -48,7 +55,7 @@ public class GameInstance : Singleton<GameInstance>
     /// Load the desired level in additive mode.
     /// </summary>
     /// <param name="level">The name of the level to load</param>
-    public void LoadLevelAdditive(string level)
+    public static void LoadLevelAdditive(string level)
     {
         SceneManager.LoadScene(level,LoadSceneMode.Additive);
     }
@@ -57,7 +64,7 @@ public class GameInstance : Singleton<GameInstance>
     /// <summary>
     /// Quit the game.
     /// </summary>
-    public void QuitGame ()
+    public static void QuitGame ()
     {
         print("Exiting game...");
         Application.Quit();
@@ -67,9 +74,8 @@ public class GameInstance : Singleton<GameInstance>
     /// <summary>
     /// Show the GameOver screen over the current scene and halt time.
     /// </summary>
-    public void GameOver ()
+    public static void GameOver ()
     {
-        _currentTubeSpeed = 0f;
         LoadLevelAdditive("MainMenu_Additive");
     }
 }

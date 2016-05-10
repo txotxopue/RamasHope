@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9dfd1325b14124ca638dc1034533e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_energyAmount: 5
+  _energyAmount: 10
 --- !u!114 &11470946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,8 +200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _typeID: 4
   _allowNextOffset: 1
-  m_EndRadialOffset: 0
-  m_Pickups: {fileID: 484154}
+  _endRadialOffset: 0
+  _pickups: {fileID: 0}
 --- !u!135 &13563984
 SphereCollider:
   m_ObjectHideFlags: 1

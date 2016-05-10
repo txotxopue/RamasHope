@@ -24715,8 +24715,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _typeID: 2
   _allowNextOffset: 0
-  m_EndRadialOffset: 0
-  m_Pickups: {fileID: 431942}
+  _endRadialOffset: 0
+  _pickups: {fileID: 0}
 --- !u!135 &13527230
 SphereCollider:
   m_ObjectHideFlags: 1

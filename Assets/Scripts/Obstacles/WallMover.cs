@@ -9,7 +9,7 @@ public class WallMover : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        movement.z = GameInstance._currentTubeSpeed * Time.deltaTime;  
+        movement.z = GameInstance.GetCurrentGameManager().GetTubeSpeed() * Time.deltaTime;  
         transform.Translate(movement);
 	}
 }

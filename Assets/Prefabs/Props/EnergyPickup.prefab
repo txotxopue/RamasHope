@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9dfd1325b14124ca638dc1034533e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_energyAmount: 10
+  _energyAmount: 10
 --- !u!135 &13558058
 SphereCollider:
   m_ObjectHideFlags: 1

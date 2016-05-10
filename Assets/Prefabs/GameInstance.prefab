@@ -39,8 +39,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e8ce50594ef3746a6fe0480befb054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myGlobalVar: Whatever
-  PlayerToInstance: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
