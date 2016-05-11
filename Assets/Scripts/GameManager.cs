@@ -12,50 +12,57 @@ public class GameManager : MonoBehaviour
 {
     [Header("Player")]
     ///<summary>Prefab to instantiate player</summary>
-    public GameObject _playerPrefab;
+    [Tooltip("Prefab to instantiate player")]
+    [SerializeField]
+    private GameObject _playerPrefab;
     ///<summary>Player manager describing the player and his spawning point</summary>
+    [Tooltip("Player manager describing the player and his spawning point")]
     public PlayerManager _playerManager;
 
     [Header("Obstacles")]
     ///<summary>Reference to the obstacle spawner. We need it to turn on/off the spawning</summary>
-    public ObstacleSpawner _obstacleSpawner;
+    [Tooltip("Reference to the obstacle spawner. We need it to turn on/off the spawning")]
     [SerializeField]
+    private ObstacleSpawner _obstacleSpawner;
     ///<summary>Maximum speed of the obstacles traveling through the tube</summary>
+    [Tooltip("Maximum speed of the obstacles traveling through the tube")]
+    [SerializeField]
     private float _maxTubeSpeed = 100f;
     ///<summary>Current speed of the obstacles traveling through the tube</summary>
     private float _currentTubeSpeed = 0f;
 
     [Header("UI")]
     ///<summary>Reference to the container of the information text layers</summary>
-    public GameObject _textContainer;
+    [Tooltip("Reference to the container of the information text layers")]
     [SerializeField]
-    ///<summary>Reference to the scene canvas, needed to pass it to the player camera</summary>
-    private Canvas _sceneCanvas;
+    private GameObject _textContainer;
 
     [Header("Audio")]
     ///<summary>This level's music theme</summary>
+    [Tooltip("This level's music theme")]
     [SerializeField]
     private AudioClip _levelMusicTheme;
 
 
     [Header("Game Flow")]
     ///<summary>How much time to yield before starting to drain player's energy</summary>
-    public float _startDelay = 3f;
+    [Tooltip("How much time to yield before starting to drain player's energy")]
+    [SerializeField]
+    private float _startDelay = 3f;
     ///<summary>Yield object to drain player's energy. To give the tubes time to travel towards the player.</summary>
     private WaitForSeconds _startWait;
 
 
     private void Awake()
     {
-        GameInstance.SetCurrentGameManager(this);
+        GameInstance.SetCurrentGameManager(this); //Register this GameManager into the GameInstance
+        SpawnPlayer();
     }
 
 
     private void Start()
     {
         _startWait = new WaitForSeconds(_startDelay);
-        SpawnPlayer();
-
         StartCoroutine(GameLoop());
     }
 
@@ -65,10 +72,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void SpawnPlayer()
     {
-        _playerManager.m_Instance =
-            Instantiate(_playerPrefab, _playerManager.m_SpawnPoint.position, _playerManager.m_SpawnPoint.rotation) as GameObject;
-        _playerManager.m_Instance.name = "Player";
-        //_playerManager.Setup(_sceneCanvas);
+        _playerManager._instance =
+            Instantiate(_playerPrefab, _playerManager._spawnPoint.position, _playerManager._spawnPoint.rotation) as GameObject;
+        _playerManager._instance.name = "Player";
+        _playerManager.Setup();
     }
 
 
@@ -105,8 +112,7 @@ public class GameManager : MonoBehaviour
     {
         GameInstance.GetPlayer().GetComponentInChildren<EnergyManager>()._bEnergyDrain = true;
         EmptyText();
-
-        while (_playerManager.m_Instance.activeSelf)
+        while (_playerManager._instance.activeSelf)
         {
             yield return null;
         }

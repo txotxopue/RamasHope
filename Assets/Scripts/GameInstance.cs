@@ -9,31 +9,43 @@ public class GameInstance : Singleton<GameInstance>
     protected GameInstance () {}
 
     ///<summary>Reference to the player</summary>
-    private static GameObject m_Player;
+    private static GameObject _player;
 
+    ///<summary>Reference to the current level Game Manager</summary>
     private static GameManager _currentGameManager;
 
     /// <summary>
-    /// Get a player reference.
+    /// Get a player reference from anywhere in the game,
+    /// since this is a Singleton class.
     /// </summary>
     /// <returns>the GameObject of the player</returns>
     public static GameObject GetPlayer()
     {
-        // If the player has not been found yet, go find him in the hierarchy
-        if (m_Player == null)
+        // If the player has not been found yet, retrieve it from the game manager
+        if (_player == null)
         {
-            m_Player = GameObject.Find("Player");
+            _player = _currentGameManager._playerManager._instance;
         }
-        return m_Player;
+        return _player;
     }
 
 
+    /// <summary>
+    /// Returns the instance of the current level game manager.
+    /// The game manager holds info of the current game state.
+    /// </summary>
+    /// <returns>The current level game manager instance</returns>
     public static GameManager GetCurrentGameManager()
     {
         return _currentGameManager;
     }
 
 
+    /// <summary>
+    /// When the Game Manager is loaded, 
+    /// it registers itself into the GameInstance with this method.
+    /// </summary>
+    /// <param name="pGameManager">Current level Game Manager</param>
     public static void SetCurrentGameManager(GameManager pGameManager)
     {
         _currentGameManager = pGameManager;
@@ -42,7 +54,6 @@ public class GameInstance : Singleton<GameInstance>
 
     /// <summary>
     /// Load the desired level.
-    /// It also restores timeScale, in case it has been halted.
     /// </summary>
     /// <param name="level">The name of the level to load</param>
     public static void LoadLevel (string level)
@@ -72,7 +83,7 @@ public class GameInstance : Singleton<GameInstance>
 
 
     /// <summary>
-    /// Show the GameOver screen over the current scene and halt time.
+    /// Show the GameOver screen over the current scene.
     /// </summary>
     public static void GameOver ()
     {

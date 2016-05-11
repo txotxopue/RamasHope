@@ -2,52 +2,31 @@
 using System.Collections;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// This class handles the display of the remaining energy in the ship,
+/// via a filled image of an energybar.
+/// </summary>
 public class UIEnergyMeterManager : MonoBehaviour
 {
+    /// <summary>The energy manager script which we retrieve the energy fill amount from</summary>
     [SerializeField]
-    private Image[] m_EnergyMeter;
-    private EnergyManager m_PlayerEnergyManager;
-    private GameObject m_Player;
-    //public GameManager m_GameManager;
+    private EnergyManager _playerEnergyManager;
 
-	// Use this for initialization
-	void Start ()
-    {
-        //m_EnergyMeter = GameObject.Find("EnergyMeter").GetComponent<Image>();
-        //m_Player = GameInstance.Instance.GetPlayer();
-        //m_PlayerEnergyManager = m_GameManager.m_PlayerManager.m_Instance.GetComponentInChildren<EnergyManager>();
-        /*
-        if (m_Player == null)
-        {
-            print("no hay jugador");
-        }
-        */
-        //m_PlayerEnergyManager = m_Player.GetComponentInChildren<EnergyManager>();
-        /*
-        if (m_PlayerEnergyManager == null)
-        {
-            print("no hay EnergyMeter");
-        }
-        */
-    }
-	
+    /// <summary>Energymeter image that displays the remaining energy </summary>
+    [SerializeField]
+    private Image[] _energyMeter;
+
+
 	// Update is called once per frame
 	void Update ()
     {
-        if (m_EnergyMeter.Length != 0)
+        if (_energyMeter.Length != 0)
         {
-            m_PlayerEnergyManager = GameInstance.GetPlayer().GetComponentInChildren<EnergyManager>();
-            for (int i = 0; i < m_EnergyMeter.Length; i++)
+            for (int i = 0; i < _energyMeter.Length; i++)
             {
-                m_EnergyMeter[i].fillAmount = m_PlayerEnergyManager._currentEnergy / m_PlayerEnergyManager._maxEnergy;
+                _energyMeter[i].fillAmount = _playerEnergyManager.Energy;
             }
         }
-        /*
-        m_PlayerEnergyManager = GameInstance.Instance.GetPlayer().GetComponentInChildren<EnergyManager>();
-        if (m_EnergyMeter != null && m_PlayerEnergyManager != null)
-        {
-            m_EnergyMeter.fillAmount = m_PlayerEnergyManager._currentEnergy / m_PlayerEnergyManager._maxEnergy;
-        }
-        */
 	}
 }

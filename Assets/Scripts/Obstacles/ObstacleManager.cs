@@ -29,9 +29,8 @@ public class ObstacleManager : MonoBehaviour
         get { return _allowNextOffset; }
     }
 
-
-
     ///<summary>How many positions is the end of this obstacle offset (0-23)</summary>
+    [Tooltip("How many positions is the end of this obstacle offset (0-23)")]
     [SerializeField]
     private int _endRadialOffset = 0;
     ///<summary>How many positions is the end of this obstacle offset (0-23)</summary>
@@ -39,18 +38,18 @@ public class ObstacleManager : MonoBehaviour
     {
         get { return _endRadialOffset; }
     }
+
     ///<summary>Pickups container under this obstacle prefab</summary>
+    [Tooltip("Pickups container under this obstacle prefab")]
     [SerializeField]
     private Transform _pickups;
 
-    
-
 
     // Find the pickups
-    void Awake ()
+    void Awake()
     {
         _pickups = transform.FindChild("Pickups");
-	}
+    }
 
 
     /// <summary>
@@ -86,7 +85,7 @@ public class ObstacleManager : MonoBehaviour
     /// since the obstacles are always in the pool. Later, when we need one, 
     /// we just look for an inactive one.
     /// </summary>
-    public void ReturnToPool ()
+    private void ReturnToPool()
     {
         gameObject.SetActive(false);
     }

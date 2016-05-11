@@ -4,28 +4,38 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Script to handle the button via mouse, keyboard or gamepad.
+/// Enables or diasbles the "Selected" arrow image.
+/// </summary>
 public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
+    /// <summary>Selected arrow Image</summary>
     [SerializeField]
-    private Image selectedImage;
+    private Image _selectedImage;
+
+    // Mouse events
 
     public void OnPointerEnter (PointerEventData eventData)
     {
-        selectedImage.enabled = true;
+        _selectedImage.enabled = true;
     }
 
     public void OnPointerExit (PointerEventData eventData)
     {
-        selectedImage.enabled = false;
+        _selectedImage.enabled = false;
     }
+
+    // Keyboard/Gamepad events
 
     public void OnSelect(BaseEventData eventData)
     {
-        selectedImage.enabled = true;
+        _selectedImage.enabled = true;
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        selectedImage.enabled = false;
+        _selectedImage.enabled = false;
     }
 }

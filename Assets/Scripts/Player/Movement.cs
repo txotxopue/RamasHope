@@ -9,13 +9,9 @@ public class Movement : MonoBehaviour
 {
     ///<summary>The velocity at which you rotate around the tube</summary>
     [SerializeField]
-    private float m_RotationSpeed = 10f;
+    private float _rotationSpeed = 10f;
     ///<summary>Reference to the ship axis</summary>
-    private Transform m_root;
-
-    //not needed at this moment
-    //[SerializeField]
-    //private float m_MovementSpeed = 10f;
+    private Transform _root;
 
     
     /// <summary>
@@ -24,7 +20,7 @@ public class Movement : MonoBehaviour
     void Awake ()
     {
         // Get the root object (this is the axis for the tube rotations)
-        m_root = transform.parent;
+        _root = transform.parent;
     }
 
 
@@ -34,16 +30,8 @@ public class Movement : MonoBehaviour
     /// <param name="pRotation">Amount of rotation. Actually you can rotate only on Z axis.</param>
     public void Rotate (Vector3 pRotation)
     {
-        m_root.Rotate(pRotation * Time.deltaTime * m_RotationSpeed);
+        _root.Rotate(pRotation * Time.deltaTime * _rotationSpeed);
     }
-
-
-    /* Not needed at the moment
-    public void Move(Vector3 pMovement)
-    {
-        m_root.Translate(pMovement * Time.deltaTime * m_MovementSpeed);
-    }
-    */
 
     
     /// <summary>
@@ -57,9 +45,9 @@ public class Movement : MonoBehaviour
         if (other.gameObject.CompareTag("Wall"))
         {
             // First, we unparent the camera, otherwise it will get destroyed
-            m_root.GetComponentInChildren<Camera>().transform.parent = null;
+            _root.GetComponentInChildren<Camera>().transform.parent = null;
             // Then deactivate the player ship
-            m_root.gameObject.SetActive(false);
+            _root.gameObject.SetActive(false);
         }
         if (other.gameObject.CompareTag("Pickup"))
         {

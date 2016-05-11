@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696ad5f9e3af62a46b5cbc5348796d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerMovement: {fileID: 11475202}
+  _playerMovement: {fileID: 11475202}
 --- !u!114 &11460404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a803cccdf5b2b2146a0ca54f65bbcf09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RotationSpeed: 30
+  _rotationSpeed: 30
 --- !u!114 &11483170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -386,7 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b35d61233eb45b459a84303a55659fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnergyMeter:
+  _playerEnergyManager: {fileID: 11495430}
+  _energyMeter:
   - {fileID: 11460404}
   - {fileID: 11470838}
 --- !u!114 &11493244
@@ -424,6 +425,7 @@ MonoBehaviour:
   _maxEnergy: 100
   _currentEnergy: 0
   _energyLossRate: 10
+  _bEnergyDrain: 0
 --- !u!114 &11499202
 MonoBehaviour:
   m_ObjectHideFlags: 1

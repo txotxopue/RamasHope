@@ -6,7 +6,7 @@ using System.Collections;
 /// Spawns obstacles at intervals of _timeToSpawn.
 /// Has a list of ObstacleType and chooses randomly
 /// which one to spawn. Also manages a pool of obstacles,
-/// so spawning doesn't always mean create a new obstacle.
+/// so spawning doesn't always mean to create a new obstacle.
 /// </summary>
 public class ObstacleSpawner : MonoBehaviour
 {
@@ -19,26 +19,25 @@ public class ObstacleSpawner : MonoBehaviour
     ///<summary>Interval in seconds between obstacles</summary>
     [SerializeField]
     private float _timeToSpawn = 2f;
-    ///<summary>Coroutine invoked to spawn the obstacles at the given _timeToSpawn intervals</summary>
-    private IEnumerator _spawningCoroutine;
-
-    ///<summary>Rotation vector for the next obstacle</summary>
-    private Vector3 _rotationVector;
-
     ///<summary>Number of radial positions that an obstacle can offset from the previous one</summary>
     [SerializeField]
     private int _radialSpread = 2;
+
+    [Header("Obstacle Pool")]
+    ///<summary>Obstacle pool containing all the obstacles created. Needed to be able to reuse the ones no longer in player's view</summary>
+    [SerializeField]
+    private List<GameObject> ObstaclePool;
+
+    ///<summary>Coroutine invoked to spawn the obstacles at the given _timeToSpawn intervals</summary>
+    private IEnumerator _spawningCoroutine;
+    ///<summary>Rotation vector for the next obstacle</summary>
+    private Vector3 _rotationVector;
     ///<summary>Does the last obstacle allow the next one to spawn offset by _radialSpread?</summary>
     private bool _lastAllowsOffset = false;
     ///<summary>Radial position of the last obstacle</summary>
     private int _lastRadialPosition = 0;
-
     ///<summary>Is this spawner active?</summary>
     private bool _bSpawnIsActive = false;
-    [Header ("Obstacle Pool")]
-    ///<summary>Obstacle pool containing all the obstacles created. Needed to be able to reuse the ones no longer in player's view</summary>
-    [SerializeField]
-    private List<GameObject> ObstaclePool;
 
 
     void Awake()
@@ -78,7 +77,7 @@ public class ObstacleSpawner : MonoBehaviour
     /// <summary>
     /// Corroutine to spawn obstacles by _timeToSpawn
     /// </summary>
-    public IEnumerator SpawningCoroutine()
+    private IEnumerator SpawningCoroutine()
     {
         while (true)
         {
@@ -86,26 +85,6 @@ public class ObstacleSpawner : MonoBehaviour
             yield return new WaitForSeconds(_timeToSpawn);
         }
     }
-
-
-    /* Deprecated in favor of Spawning coroutine
-    // We update the time counter and spawn 
-    void Update ()
-    {
-        
-        if (_bSpawnIsActive)
-        {
-            _timeElapsed += Time.deltaTime;
-            if (_timeElapsed >= _timeToSpawn)
-            {
-                //print("Spawned");
-                _timeElapsed -= _timeToSpawn;
-                SpawnObstacle();
-            } 
-        }
-        
-	}
-    */
 
 
     /// <summary>

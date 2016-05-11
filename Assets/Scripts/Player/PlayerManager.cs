@@ -4,69 +4,26 @@ using UnityEngine;
 [Serializable]
 public class PlayerManager
 {
-    public Color m_PlayerColor;
-    public Transform m_SpawnPoint;
+    /// <summary>Color to tint the ship material</summary>
+    [SerializeField]
+    private Color _playerColor;
+    /// <summary>Point in the tube where the ship will spawn</summary>
+    public Transform _spawnPoint;
+    /// <summary>Reference to the player prefab instance</summary>
     [HideInInspector]
-    public string m_ColoredPlayerText;
-    [HideInInspector]
-    public GameObject m_Instance;
+    public GameObject _instance;
 
 
-    //private TankMovement m_Movement;
-    //private TankShooting m_Shooting;
-    private GameObject m_CanvasGameObject;
-
-
-    public void Setup(Canvas pCanvas)
+    /// <summary>
+    /// Setup the player ship color.
+    /// </summary>
+    public void Setup()
     {
-        //m_Movement = m_Instance.GetComponent<TankMovement>();
-        //m_Shooting = m_Instance.GetComponent<TankShooting>();
-        //m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
-
-        //m_Movement.m_PlayerNumber = m_PlayerNumber;
-        //m_Shooting.m_PlayerNumber = m_PlayerNumber;
-
-        //m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER" + "</color>";
-
-        MeshRenderer[] renderers = m_Instance.GetComponentsInChildren<MeshRenderer>();
+        MeshRenderer[] renderers = _instance.GetComponentsInChildren<MeshRenderer>();
 
         for (int i = 0; i < renderers.Length; i++)
         {
-            renderers[i].material.color = m_PlayerColor;
+            renderers[i].material.color = _playerColor;
         }
-
-        Camera camera = m_Instance.GetComponentInChildren<Camera>();
-        if (camera != null)
-        {
-            pCanvas.worldCamera = camera;
-        }
-    }
-
-    /*
-    public void DisableControl()
-    {
-        //m_Movement.enabled = false;
-        //m_Shooting.enabled = false;
-
-        //m_CanvasGameObject.SetActive(false);
-    }*/
-
-    /*
-    public void EnableControl()
-    {
-        //m_Movement.enabled = true;
-        //m_Shooting.enabled = true;
-
-        //m_CanvasGameObject.SetActive(true);
-    }*/
-
-
-    public void Reset()
-    {
-        m_Instance.transform.position = m_SpawnPoint.position;
-        m_Instance.transform.rotation = m_SpawnPoint.rotation;
-
-        m_Instance.SetActive(false);
-        m_Instance.SetActive(true);
     }
 }

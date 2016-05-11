@@ -11,18 +11,26 @@ public class EnergyManager : MonoBehaviour
 
     ///<summary>Maximum energy of the ship</summary>
     [Tooltip("Maximum energy of the ship")]
-    public float _maxEnergy = 100f;
+    [SerializeField]
+    private float _maxEnergy = 100f;
 
     ///<summary>Current energy of the ship</summary>
     [Tooltip("Current energy of the ship (not editable)")]
-    public float _currentEnergy;
+    [SerializeField]
+    private float _currentEnergy;
+
+    /// <summary>Energy fill amount expressed in [0..1]</summary>
+    public float Energy { get { return _currentEnergy / _maxEnergy; } }
 
     ///<summary>Energy losing rate in units per second</summary>
     [Tooltip("Energy losing rate in units per second")]
-    public float _energyLossRate = 1f;
+    [SerializeField]
+    private float _energyLossRate = 1f;
 
     ///<summary>If the energy should be decreasing or not.</summary>
-    public bool _bEnergyDrain { get; set; }
+    [Tooltip("If the energy should be decreasing or not.")]
+    [HideInInspector]
+    public bool _bEnergyDrain;
 
     ///<summary>Is the ship destroyed?</summary>
     private bool _dead;
@@ -50,7 +58,6 @@ public class EnergyManager : MonoBehaviour
             _dead = true;
             transform.parent.GetComponentInChildren<Camera>().transform.parent = null;
             transform.parent.gameObject.SetActive(false);
-            //GameInstance.Instance.GameOver();
         }
 	}
 

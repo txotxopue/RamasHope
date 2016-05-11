@@ -8,7 +8,8 @@
 public class EnergyPickup : MonoBehaviour
 {
     ///<summary>Amount of energy this pickup provides</summary>
-    public int _energyAmount = 10;
+    [SerializeField]
+    private int _energyAmount = 10;
 
 
     /// <summary>
