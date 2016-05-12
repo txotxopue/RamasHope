@@ -46,7 +46,7 @@ MonoBehaviour:
     _instance: {fileID: 0}
   _obstacleSpawner: {fileID: 0}
   _maxTubeSpeed: 100
-  _textContainer: {fileID: 0}
+  _windowManager: {fileID: 0}
   _levelMusicTheme: {fileID: 8300000, guid: e18886ccf6cb8214fae97a951c4fcc02, type: 3}
   _startDelay: 3
 --- !u!1001 &100100000

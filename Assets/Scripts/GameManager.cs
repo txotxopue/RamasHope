@@ -32,10 +32,10 @@ public class GameManager : MonoBehaviour
     private float _currentTubeSpeed = 0f;
 
     [Header("UI")]
-    ///<summary>Reference to the container of the information text layers</summary>
-    [Tooltip("Reference to the container of the information text layers")]
+    ///<summary>Reference to the Window Manager</summary>
+    [Tooltip("Reference to the Window Manager")]
     [SerializeField]
-    private GameObject _textContainer;
+    private WindowManager _windowManager;
 
     [Header("Audio")]
     ///<summary>This level's music theme</summary>
@@ -84,9 +84,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private IEnumerator GameLoop()
     {
-        yield return StartCoroutine(LevelStarting());
+        yield return StartCoroutine(LevelReady());
+        yield return StartCoroutine(LevelGo());
         yield return StartCoroutine(LevelPlaying());
-        yield return StartCoroutine(LevelEnding());
+        yield return StartCoroutine(LevelOver());
     }
 
 
@@ -94,24 +95,34 @@ public class GameManager : MonoBehaviour
     /// Activates obstacle spawning, disables player's energy draining,
     /// displays a GET READY text, and finally waits a certain amount of time given by _startDelay.
     /// </summary>
-    private IEnumerator LevelStarting()
+    private IEnumerator LevelReady()
     {
         _obstacleSpawner.SetSpawnActive(true);
         ServiceLocator.GetMusicService().Play(_levelMusicTheme);
         GameInstance.GetPlayer().GetComponentInChildren<EnergyManager>()._bEnergyDrain = false;
         SetFullSpeed(); // Start moving the tube
-        DisplayText("get ready!");
+        _windowManager.Open(EWindows.GetReady);
         yield return _startWait;
     }
 
 
     /// <summary>
-    /// Activates energy draining and loops until the player is destroyed.
+    /// Activates energy draining and displays the Go! text.
+    /// </summary>
+    private IEnumerator LevelGo()
+    {
+        GameInstance.GetPlayer().GetComponentInChildren<EnergyManager>()._bEnergyDrain = true;
+        _windowManager.Open(EWindows.Go);
+        yield return _startWait;
+    }
+
+
+    /// <summary>
+    /// Clears text and loops until the player is destroyed.
     /// </summary>
     private IEnumerator LevelPlaying()
     {
-        GameInstance.GetPlayer().GetComponentInChildren<EnergyManager>()._bEnergyDrain = true;
-        EmptyText();
+        _windowManager.Close();
         while (_playerManager._instance.activeSelf)
         {
             yield return null;
@@ -120,13 +131,12 @@ public class GameManager : MonoBehaviour
 
 
     /// <summary>
-    /// Displays a GAME OVER text and loads the game over scene.
+    /// Displays the GAME OVER screen with the menu.
     /// </summary>
-    private IEnumerator LevelEnding()
+    private IEnumerator LevelOver()
     {
-        DisplayText("game over");
+        _windowManager.Open(EWindows.GameOverMenu);
         SetTubeSpeed(0f);
-        GameInstance.GameOver();
         yield return null;
     }
 
@@ -179,7 +189,7 @@ public class GameManager : MonoBehaviour
     /// <param name="pText">Text to display</param>
     private void DisplayText(string pText)
     {
-        foreach (Text text in _textContainer.transform.GetComponentsInChildren<Text>())
+        foreach (Text text in _windowManager.transform.GetComponentsInChildren<Text>())
         {
             text.text = pText;
         }
@@ -191,7 +201,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void EmptyText()
     {
-        foreach (Text text in _textContainer.transform.GetComponentsInChildren<Text>())
+        foreach (Text text in _windowManager.transform.GetComponentsInChildren<Text>())
         {
             text.text = String.Empty;
         }

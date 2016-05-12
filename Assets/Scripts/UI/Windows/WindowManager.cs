@@ -8,10 +8,10 @@ public class WindowManager : MonoBehaviour
     public BaseWindow[] _windows;
     /// <summary>Current window ID from the list</summary>
     [SerializeField]
-    private int _currentWindowID;
+    private EWindows _currentWindowID;
     /// <summary>Default window ID from the list</summary>
     [SerializeField]
-    private int _defaultWindowID;
+    private EWindows _defaultWindowID;
 
 
     /// <summary>
@@ -61,10 +61,63 @@ public class WindowManager : MonoBehaviour
         {
             return null;
         }
-        _currentWindowID = value;
-        ToggleVisibility(_currentWindowID);
+        _currentWindowID = ListIDToWindow(value);
+        ToggleVisibility(value);
 
-        return GetWindow(_currentWindowID);
+        return GetWindow(value);
+    }
+
+
+    /// <summary>
+    /// Opens the given window, closes the rest,
+    /// sets the opened window as the current one and returns the window.
+    /// </summary>
+    /// <param name="pWindow">Window enum value of the window to open</param>
+    /// <returns>The window opened</returns>
+    public BaseWindow Open(EWindows pWindow)
+    {
+        return Open(WindowToListID(pWindow));
+    }
+
+
+    /// <summary>
+    /// Closes the active window(if any).
+    /// </summary>
+    public void Close()
+    {
+        if (_currentWindowID != EWindows.None)
+        {
+            BaseWindow window = GetWindow(WindowToListID(_currentWindowID));
+            if (window != null && window.gameObject.activeSelf)
+            {
+                window.Close();
+                _currentWindowID = EWindows.None;
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Translates the Windows Enum value 
+    /// to the index of the Window List.
+    /// </summary>
+    /// <param name="pWindow">Windows Enum value of the window</param>
+    /// <returns>int index of the window list</returns>
+    private int WindowToListID(EWindows pWindow)
+    {
+        return (int)pWindow - 1;
+    }
+
+
+    /// <summary>
+    /// Translates the index in the window list to
+    /// the corresponding Windows Enum value.
+    /// </summary>
+    /// <param name="pWindowListID">int index of the window in the list</param>
+    /// <returns>Windows Enum value</returns>
+    private EWindows ListIDToWindow(int pWindowListID)
+    {
+        return (EWindows)(pWindowListID + 1);
     }
 
 
@@ -72,6 +125,6 @@ public class WindowManager : MonoBehaviour
     void Start()
     {
         BaseWindow._manager = this;
-        Open(_defaultWindowID);
+        Open(WindowToListID(_defaultWindowID));
     }
 }
