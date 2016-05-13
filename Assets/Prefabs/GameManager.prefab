@@ -49,6 +49,7 @@ MonoBehaviour:
   _windowManager: {fileID: 0}
   _levelMusicTheme: {fileID: 8300000, guid: e18886ccf6cb8214fae97a951c4fcc02, type: 3}
   _startDelay: 3
+  _timerLabel: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

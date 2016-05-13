@@ -11,7 +11,7 @@ public class MainMenuWindow : BaseWindow
 {
     /// <summary>Name of the scene to load when the New Game button is pressed</summary>
     [SerializeField]
-    private string _sceneName = "test";
+    protected string _sceneName = "test";
 
 
     /// <summary>

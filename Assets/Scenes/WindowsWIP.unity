@@ -86,7 +86,13 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &71711854
+--- !u!114 &71711856 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11411170, guid: c7cfb478ab3054347a5f3d362a717111,
+    type: 2}
+  m_PrefabInternal: {fileID: 147512911}
+  m_Script: {fileID: 11500000, guid: 33cfce5d47460f34cabae645f3990fbd, type: 3}
+--- !u!1001 &147512911
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -168,12 +174,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7cfb478ab3054347a5f3d362a717111, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &71711856 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11411170, guid: c7cfb478ab3054347a5f3d362a717111,
-    type: 2}
-  m_PrefabInternal: {fileID: 71711854}
-  m_Script: {fileID: 11500000, guid: 33cfce5d47460f34cabae645f3990fbd, type: 3}
 --- !u!1001 &185641457
 Prefab:
   m_ObjectHideFlags: 0
@@ -264,7 +264,7 @@ RectTransform:
 --- !u!1 &395648934 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 187228, guid: c7cfb478ab3054347a5f3d362a717111, type: 2}
-  m_PrefabInternal: {fileID: 71711854}
+  m_PrefabInternal: {fileID: 147512911}
 --- !u!224 &1000305812 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22415420, guid: a7f329260337a5945aed4e7c548390f4,
@@ -541,4 +541,4 @@ MonoBehaviour:
 RectTransform:
   m_PrefabParentObject: {fileID: 22425904, guid: c7cfb478ab3054347a5f3d362a717111,
     type: 2}
-  m_PrefabInternal: {fileID: 71711854}
+  m_PrefabInternal: {fileID: 147512911}

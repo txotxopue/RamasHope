@@ -52,6 +52,20 @@ public class GameManager : MonoBehaviour
     ///<summary>Yield object to drain player's energy. To give the tubes time to travel towards the player.</summary>
     private WaitForSeconds _startWait;
 
+    [Header("Game State")]
+    ///<summary>Time surviving in the tube</summary>
+    private float _timer = 0f;
+    ///<summary>HUD label containing the time surviving in the tube</summary>
+    [Tooltip("HUD label containing the time surviving in the tube")]
+    [SerializeField]
+    private Text _timerLabel;
+    ///<summary>HUD containing the timer</summary>
+    [Tooltip("HUD containing the timer")]
+    [SerializeField]
+    private GameObject _timerHUD;
+    ///<summary>True if we are counting time, false if not</summary>
+    private bool _bTimerIsOn = false;
+
 
     private void Awake()
     {
@@ -113,6 +127,7 @@ public class GameManager : MonoBehaviour
     {
         GameInstance.GetPlayer().GetComponentInChildren<EnergyManager>()._bEnergyDrain = true;
         _windowManager.Open(EWindows.Go);
+        StartTimer();
         yield return _startWait;
     }
 
@@ -135,6 +150,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private IEnumerator LevelOver()
     {
+        StopTimer();
         _windowManager.Open(EWindows.GameOverMenu);
         SetTubeSpeed(0f);
         yield return null;
@@ -169,8 +185,6 @@ public class GameManager : MonoBehaviour
         {
             _currentTubeSpeed = 0f;
         }
-
-
     }
 
 
@@ -184,26 +198,67 @@ public class GameManager : MonoBehaviour
 
 
     /// <summary>
-    /// Displays the given text on the different layers of the text container.
+    /// Resets and starts the timer
     /// </summary>
-    /// <param name="pText">Text to display</param>
-    private void DisplayText(string pText)
+    private void StartTimer()
     {
-        foreach (Text text in _windowManager.transform.GetComponentsInChildren<Text>())
-        {
-            text.text = pText;
-        }
+        _timerHUD.gameObject.SetActive(true);
+        _timer = 0f;
+        _bTimerIsOn = true;
     }
 
 
     /// <summary>
-    /// Deletes all text from the text container's layers.
+    /// Stops the timer
     /// </summary>
-    private void EmptyText()
+    private void StopTimer()
     {
-        foreach (Text text in _windowManager.transform.GetComponentsInChildren<Text>())
+        _timerHUD.gameObject.SetActive(false);
+        _bTimerIsOn = false;
+    }
+
+
+    /// <summary>
+    /// Returns the current time in the timer in seconds.
+    /// </summary>
+    /// <returns>Current time in seconds</returns>
+    public float GetTimer()
+    {
+        return _timer;
+    }
+
+
+    /// <summary>
+    /// Returns the current time formatted in two flavors:
+    /// with or without the deciseconds.
+    /// </summary>
+    /// <param name="pWithMillis"></param>
+    /// <returns>The formatted time</returns>
+    public string GetTimerFormatted(bool pWithDecis)
+    {
+        int hours = (int)(_timer / 60 / 60);
+        int minutes = (int)(_timer / 60);
+        int seconds = (int)(_timer % 60);
+        if (pWithDecis)
         {
-            text.text = String.Empty;
+            int decis = (int)(_timer * 10 % 10);
+            return string.Format("{0:00}:{1:00}:{2:00}.{3:0}", hours, minutes, seconds, decis);
+        }
+        else
+        {
+            return string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
+        }
+        
+    }
+
+
+    private void Update ()
+    {
+        if (_bTimerIsOn)
+        {
+            // We update the timer
+            _timer += Time.deltaTime;
+            _timerLabel.text = GetTimerFormatted(true);
         }
     }
 }
