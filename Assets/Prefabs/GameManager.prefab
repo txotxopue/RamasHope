@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ef4867779943142963ffdd864207bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 117746, guid: 624d955e605c3c64bbcde866ba355cdd, type: 2}
+  _playerPrefab: {fileID: 114230, guid: 9456a107f08996c43b80c9d970e6d06c, type: 2}
   _playerManager:
     _playerColor: {r: 0.81568635, g: 0.6901961, b: 0, a: 1}
     _spawnPoint: {fileID: 0}
@@ -50,6 +50,7 @@ MonoBehaviour:
   _levelMusicTheme: {fileID: 8300000, guid: e18886ccf6cb8214fae97a951c4fcc02, type: 3}
   _startDelay: 3
   _timerLabel: {fileID: 0}
+  _timerHUD: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

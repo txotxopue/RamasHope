@@ -13,7 +13,13 @@ public class Movement : MonoBehaviour
     ///<summary>Reference to the ship axis</summary>
     private Transform _root;
 
-    
+    ///<summary>Current rotation reference for animation updates</summary>
+    private float _rotation;
+    ///<summary>Current rotation reference for animation updates</summary>
+    public float Rotation { get { return _rotation; } }
+
+
+
     /// <summary>
     /// Called when the GameObject is created.
     /// </summary>
@@ -30,6 +36,7 @@ public class Movement : MonoBehaviour
     /// <param name="pRotation">Amount of rotation. Actually you can rotate only on Z axis.</param>
     public void Rotate (Vector3 pRotation)
     {
+        _rotation = pRotation.z; // Storing this for animations
         _root.Rotate(pRotation * Time.deltaTime * _rotationSpeed);
     }
 

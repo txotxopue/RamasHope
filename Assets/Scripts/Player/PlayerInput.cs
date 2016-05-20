@@ -18,9 +18,12 @@ public class PlayerInput : MonoBehaviour
 	void FixedUpdate ()
     {
         _rotationAmount.z = Input.GetAxis("Horizontal");
+        _playerMovement.Rotate(_rotationAmount);
+        /*
         if (_rotationAmount != Vector3.zero)
         {
             _playerMovement.Rotate(_rotationAmount);
         }
+        */
 	}
 }
