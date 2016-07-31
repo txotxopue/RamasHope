@@ -14,6 +14,11 @@ public class MainMenuWindow : BaseWindow
     protected string _sceneName = "test";
 
 
+    protected override void Awake()
+    {
+
+    }
+
     /// <summary>
     /// When the New Game button is pressed, we load the first level.
     /// </summary>
